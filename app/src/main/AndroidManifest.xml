@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.apppenerapanservice">
 
+<!--    add permision-->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,9 +13,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppPenerapanService">
         <service
-            android:name=".MyBackgroundService"
+            android:name=".MyForeGroundService"
             android:enabled="true"
             android:exported="true"></service>
+        <service
+            android:name=".MyBackgroundService"
+            android:enabled="true"
+            android:exported="true" />
 
         <activity
             android:name=".MainActivity"

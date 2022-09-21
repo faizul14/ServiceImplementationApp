@@ -1,6 +1,7 @@
 package com.example.apppenerapanservice
 
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -16,6 +17,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         with(binding){
             startS.setOnClickListener(this@MainActivity)
             stopS.setOnClickListener(this@MainActivity)
+            startSf.setOnClickListener(this@MainActivity)
+            stopSf.setOnClickListener(this@MainActivity)
         }
     }
 
@@ -27,6 +30,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             R.id.stop_s->{
                 startSevices(false)
             }
+            R.id.start_sf->{
+                startForeGroundServices(true)
+            }
+            R.id.stop_sf->{
+                startForeGroundServices(false)
+            }
+
 
         }
     }
@@ -41,6 +51,22 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 stopService(service)
             }
 
+        }
+    }
+
+    private fun startForeGroundServices(status: Boolean){
+        val service = Intent(this, MyForeGroundService::class.java)
+        when(status){
+            true -> {
+                if (Build.VERSION.SDK_INT >= 26){
+                    startForegroundService(service)
+                }else{
+                    startService(service)
+                }
+            }
+            false -> {
+                stopService(service)
+            }
         }
     }
 }
